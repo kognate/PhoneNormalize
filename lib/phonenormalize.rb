@@ -28,8 +28,8 @@ class Phonenormalize
   end
 
   def has_extension?
-    _m = self.phone_number.gsub(/[^\w]/,"").match(/^(1?[2-9][0-8][0-9])([0-9]{3})([0-9]{4})((x|ext[^\d]*)([\d]+))?$/)
-    _m && _m[6]
+    _m = parse
+    _m && _m[:extension]
   end
 
   private
