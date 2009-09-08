@@ -30,4 +30,10 @@ class Phonenormalize
       raise BadPhoneNumber.new("Coulnd't find valid phone number in #{self.phone_number}")
     end
   end
+
+  def has_extension?
+    _m = self.phone_number.gsub(/[^\w]/,"").match(/^(1?[2-9][0-8][0-9])([0-9]{3})([0-9]{4})((x|ext[^\d]*)([\d]+))?$/)
+    _m && _m[6]
+  end
+  
 end
