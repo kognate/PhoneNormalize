@@ -26,8 +26,8 @@ class NormalTest < Test::Unit::TestCase
 
   def test_is_valid?
     assert @pn.respond_to?("is_valid?".to_sym)
-    _p = Phonenormalize.new "+1 (312 934 5394"
-    assert _p.is_valid?
+    @pn.phone_number = "3129345394"
+    assert @pn.is_valid?
   end
 
 end
