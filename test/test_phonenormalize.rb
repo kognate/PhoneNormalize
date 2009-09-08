@@ -1,5 +1,6 @@
 require 'test/unit'
 require './lib/phonenormalize'
+require './lib/bad_phone_number'
 
 class NormalTest < Test::Unit::TestCase
   def setup
@@ -22,6 +23,13 @@ class NormalTest < Test::Unit::TestCase
     assert @pn.respond_to?(:normal_form)
     @pn.phone_number = "3129345394"
     assert_equal "(312) 934-5394",@pn.normal_form
+  end
+
+  def test_bad_number
+    @pn.phone_number = "542"
+    assert_raise BadPhoneNumber do
+      @pn.normal_form
+    end
   end
 
   def test_is_valid?
