@@ -1,0 +1,3 @@
+class BadPhoneNumber < RuntimeError
+
+end
