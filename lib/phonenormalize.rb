@@ -37,7 +37,7 @@ class Phonenormalize
     _m && _m[:extension]
   end
 
-  private
+  protected
   def parse
     _sp = self.phone_number.split(/x|ext[^\d]*/)
     _num = _sp[0].gsub(/[^\d]/,"").match(/^(1?[2-9][0-8][0-9])([0-9]{3})([0-9]{4})/)
