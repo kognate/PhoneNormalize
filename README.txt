@@ -6,6 +6,13 @@
 
 == FEATURES/PROBLEMS:
 
+   You can specify a normal_form_pattern using a pattern of %A for the
+   Area Code,  %E for the Exchange, %C for the number and using the 
+   !{   }  special.  This 'special' should include a %X which takes
+   the place of the extension, if it exists. Everything inside the
+   special (including it's own chars) gets replaced if there is no
+   extension.  Everything else is untouched.  
+
 
 == SYNOPSIS:
 
