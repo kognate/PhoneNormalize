@@ -1,6 +1,6 @@
 class Phonenormalize
   attr_accessor :phone_number, :normal_form_pattern
-  VERSION = '1.0.0'
+  VERSION = '1.0.1'
   def initialize(pnum = nil)
     self.phone_number = pnum
     self.normal_form_pattern = "(%A) %E-%C!{ %X}"
