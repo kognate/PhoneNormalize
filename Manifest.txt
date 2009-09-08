@@ -1,0 +1,7 @@
+History.txt
+Manifest.txt
+README.txt
+Rakefile
+bin/phonenormalize
+lib/phonenormalize.rb
+test/test_phonenormalize.rb
