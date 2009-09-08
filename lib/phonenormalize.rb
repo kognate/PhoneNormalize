@@ -8,7 +8,8 @@ class Phonenormalize
 
   def is_valid?
     begin
-      self.normal_form
+      parse
+      true
     rescue BadPhoneNumber => e
       false
     end
@@ -28,7 +29,11 @@ class Phonenormalize
   end
 
   def has_extension?
-    _m = parse
+    _m = begin
+           parse
+         rescue BadPhoneNumber => e
+           false
+         end
     _m && _m[:extension]
   end
 
