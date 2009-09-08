@@ -3,7 +3,7 @@ class Phonenormalize
   VERSION = '1.0.0'
   def initialize(pnum = nil)
     self.phone_number = pnum
-    self.normal_form_pattern = "(%A) %E-%C !{%X}"
+    self.normal_form_pattern = "(%A) %E-%C!{ %X}"
   end
 
   def is_valid?
@@ -22,7 +22,7 @@ class Phonenormalize
     if _m[:extension]
       _res.gsub!(/(\s*)!\{(.*)?%X(.*)?\}/,'\1\2'+_m[:extension]+'\3')
     else
-      _res.gsub!(/\s*!\{.*?\}/,"")
+      _res.gsub!(/!\{.*?\}/,"")
     end
     _res
   end
