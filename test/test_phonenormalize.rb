@@ -39,7 +39,7 @@ class NormalTest < Test::Unit::TestCase
     assert @pn.is_valid?
   end
 
-  def test_normal_form_regexp
+  def test_normal_form_pattern
     assert @pn.respond_to?(:normal_form_pattern)
     @pn.normal_form_pattern = "[%A]"
     @pn.phone_number="3129345393"
