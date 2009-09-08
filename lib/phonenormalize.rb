@@ -15,15 +15,19 @@ class Phonenormalize
   end
 
   def normal_form
-    _m = self.phone_number.gsub(/[^\d]/,"").match(/(1?[2-9][0-8][0-9])([0-9]{3})([0-9]{4})/)
+    _m = self.phone_number.gsub(/[^\w]/,"").match(/^(1?[2-9][0-8][0-9])([0-9]{3})([0-9]{4})((x|ext[^\d]*)([\d]+))?$/)
     if _m
       _res = self.normal_form_pattern.gsub(/%A/,_m[1])
       _res.gsub!(/%E/,_m[2])
       _res.gsub!(/%C/,_m[3])
+      if _m[6]
+        _res.gsub!(/%X/,_m[6])
+      else
+        _res.gsub!(/%X/,"")
+      end
       _res
     else
       raise BadPhoneNumber.new("Coulnd't find valid phone number in #{self.phone_number}")
     end
   end
-  #(555) 123 9453".gsub(/[^\w]/,"").match
 end
