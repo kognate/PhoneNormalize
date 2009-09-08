@@ -3,7 +3,7 @@ class Phonenormalize
   VERSION = '1.0.0'
   def initialize(pnum = nil)
     self.phone_number = pnum
-    self.normal_form_pattern = "(%A) %E-%C"
+    self.normal_form_pattern = "(%A) %E-%C !{%X}"
   end
 
   def is_valid?
@@ -15,25 +15,30 @@ class Phonenormalize
   end
 
   def normal_form
-    _m = self.phone_number.gsub(/[^\w]/,"").match(/^(1?[2-9][0-8][0-9])([0-9]{3})([0-9]{4})((x|ext[^\d]*)([\d]+))?$/)
-    if _m
-      _res = self.normal_form_pattern.gsub(/%A/,_m[1])
-      _res.gsub!(/%E/,_m[2])
-      _res.gsub!(/%C/,_m[3])
-      if _m[6]
-        _res.gsub!(/%X/,_m[6])
-      else
-        _res.gsub!(/%X/,"")
-      end
-      _res
+    _m = parse
+    _res = self.normal_form_pattern.gsub(/%A/,_m[:area_code])
+      _res.gsub!(/%E/,_m[:exchange])
+      _res.gsub!(/%C/,_m[:num])
+    if _m[:extension]
+      _res.gsub!(/(\s*)!\{(.*)?%X(.*)?\}/,'\1\2'+_m[:extension]+'\3')
     else
-      raise BadPhoneNumber.new("Coulnd't find valid phone number in #{self.phone_number}")
+      _res.gsub!(/\s*!\{.*?\}/,"")
     end
+    _res
   end
 
   def has_extension?
     _m = self.phone_number.gsub(/[^\w]/,"").match(/^(1?[2-9][0-8][0-9])([0-9]{3})([0-9]{4})((x|ext[^\d]*)([\d]+))?$/)
     _m && _m[6]
+  end
+
+  private
+  def parse
+    _sp = self.phone_number.split(/x|ext[^\d]*/)
+    _num = _sp[0].gsub(/[^\d]/,"").match(/^(1?[2-9][0-8][0-9])([0-9]{3})([0-9]{4})/)
+    _ext = _sp[1].nil? ? nil : _sp[1].gsub(/[^\d]/,"")
+    raise BadPhoneNumber.new("Coulnd't find valid phone number in #{self.phone_number}") unless _num
+    {:area_code => _num[1], :exchange => _num[2], :num => _num[3], :extension => _ext }
   end
   
 end
