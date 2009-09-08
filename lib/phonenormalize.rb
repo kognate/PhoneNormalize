@@ -6,7 +6,11 @@ class Phonenormalize
   end
 
   def is_valid?
-    true
+    begin
+      self.normal_form
+    rescue BadPhoneNumber => e
+      false
+    end
   end
 
   def normal_form
