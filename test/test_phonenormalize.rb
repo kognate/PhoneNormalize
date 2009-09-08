@@ -30,12 +30,20 @@ class NormalTest < Test::Unit::TestCase
     assert_raise BadPhoneNumber do
       @pn.normal_form
     end
+    assert_equal false,@pn.is_valid?
   end
 
   def test_is_valid?
     assert @pn.respond_to?("is_valid?".to_sym)
     @pn.phone_number = "3129345394"
     assert @pn.is_valid?
+  end
+
+  def test_normal_form_regexp
+    assert @pn.respond_to?(:normal_form_pattern)
+    @pn.normal_form_pattern = "[%A]"
+    @pn.phone_number="3129345393"
+    assert_equal "[312]",@pn.normal_form
   end
 
 end
