@@ -49,8 +49,8 @@ class NormalTest < Test::Unit::TestCase
   def test_handle_extensions
     @pn.phone_number="312-931-3459ext324"
     assert @pn.is_valid?
-    @pn.normal_form_pattern = "%A-%E-%Cx%X"
-    assert_equal "312-931-3459x324",@pn.normal_form
+    @pn.normal_form_pattern = "%A-%E-%C !{x%X}"
+    assert_equal "312-931-3459 x324",@pn.normal_form
   end
 
   def test_has_extension?
