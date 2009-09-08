@@ -59,4 +59,14 @@ class NormalTest < Test::Unit::TestCase
     assert @pn.has_extension?
   end
 
+  def test_garbage_input
+    @pn.phone_number = "cell: 312 9 3 4 453 1"
+    assert @pn.is_valid?
+    assert_equal "(312) 934-4531",@pn.normal_form
+    @pn.phone_number = "cell: 312 9 3 4 453"
+    assert_raise BadPhoneNumber do
+      @pn.normal_form
+    end    
+  end
+
 end
