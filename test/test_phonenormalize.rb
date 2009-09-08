@@ -20,6 +20,8 @@ class NormalTest < Test::Unit::TestCase
   
   def test_parse_number
     assert @pn.respond_to?(:normal_form)
+    @pn.phone_number = "3129345394"
+    assert_equal "(312) 934-5394",@pn.normal_form
   end
 
   def test_is_valid?
