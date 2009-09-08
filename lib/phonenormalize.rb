@@ -14,7 +14,7 @@ class Phonenormalize
     if _m
       sprintf("(%s) %s-%s",_m[1],_m[2],_m[3])
     else
-      raise StandardError.new("Coulnd't find valid phone number in #{self.phone_number}")
+      raise BadPhoneNumber.new("Coulnd't find valid phone number in #{self.phone_number}")
     end
   end
   #(555) 123 9453".gsub(/[^\w]/,"").match
