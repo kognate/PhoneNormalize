@@ -8,5 +8,14 @@ class Phonenormalize
   def is_valid?
     true
   end
-  #(555) 123 9453".gsub(/[^\w]/,"").match(/([2-9][0-8][0-9])([0-9]{3})([0-9]{4})/)
+
+  def normal_form
+    _m = self.phone_number.gsub(/[^\d]/,"").match(/(1?[2-9][0-8][0-9])([0-9]{3})([0-9]{4})/)
+    if _m
+      sprintf("(%s) %s-%s",_m[1],_m[2],_m[3])
+    else
+      raise StandardError.new("Coulnd't find valid phone number in #{self.phone_number}")
+    end
+  end
+  #(555) 123 9453".gsub(/[^\w]/,"").match
 end
